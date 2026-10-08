@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 466" width="760" height="466" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" role="img">
+<rect x="0.0" y="0.0" width="760.0" height="466.0" rx="8" fill="#1a1a19" fill-opacity="1.0"/>
+<text x="24.0" y="30.0" font-size="15" font-weight="600" text-anchor="start" fill="#ffffff">Seeded build 1.1.0: 7 of 14 requirements have failing tests</text>
+<text x="24.0" y="50.0" font-size="12" font-weight="400" text-anchor="start" fill="#c3c2b7">Requirement tests on the build with seven planted defects, one row per requirement</text>
+<text x="24.0" y="91.0" font-size="12" font-weight="400" text-anchor="start" fill="#ffffff">DIAG-01</text>
+<path d="M112.0,80.0 h180.0 a4,4 0 0 1 4,4 v6.0 a4,4 0 0 1 -4,4 h-180.0 z" fill="#0ca30c"/>
+<text x="308.0" y="91.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">4 of 4 passed</text>
+<text x="676.0" y="91.0" font-size="12" font-weight="700" text-anchor="start" fill="#0ca30c">✓</text>
+<text x="692.0" y="91.0" font-size="11" font-weight="600" text-anchor="start" fill="#ffffff">PASS</text>
+<text x="24.0" y="115.0" font-size="12" font-weight="400" text-anchor="start" fill="#ffffff">DIAG-02</text>
+<path d="M112.0,104.0 h180.0 a4,4 0 0 1 4,4 v6.0 a4,4 0 0 1 -4,4 h-180.0 z" fill="#0ca30c"/>
+<text x="308.0" y="115.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">4 of 4 passed</text>
+<text x="676.0" y="115.0" font-size="12" font-weight="700" text-anchor="start" fill="#0ca30c">✓</text>
+<text x="692.0" y="115.0" font-size="11" font-weight="600" text-anchor="start" fill="#ffffff">PASS</text>
+<text x="24.0" y="139.0" font-size="12" font-weight="400" text-anchor="start" fill="#ffffff">DIAG-03</text>
+<path d="M112.0,128.0 h272.0 a4,4 0 0 1 4,4 v6.0 a4,4 0 0 1 -4,4 h-272.0 z" fill="#0ca30c"/>
+<text x="400.0" y="139.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">6 of 6 passed</text>
+<text x="676.0" y="139.0" font-size="12" font-weight="700" text-anchor="start" fill="#0ca30c">✓</text>
+<text x="692.0" y="139.0" font-size="11" font-weight="600" text-anchor="start" fill="#ffffff">PASS</text>
+<text x="24.0" y="163.0" font-size="12" font-weight="400" text-anchor="start" fill="#ffffff">DIAG-04</text>
+<rect x="112.0" y="152.0" width="228.0" height="14.0" rx="0" fill="#0ca30c" fill-opacity="1.0"/>
+<path d="M342.0,152.0 h88.0 a4,4 0 0 1 4,4 v6.0 a4,4 0 0 1 -4,4 h-88.0 z" fill="#d03b3b"/>
+<text x="446.0" y="163.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">5 of 7 passed</text>
+<text x="676.0" y="163.0" font-size="12" font-weight="700" text-anchor="start" fill="#d03b3b">✕</text>
+<text x="692.0" y="163.0" font-size="11" font-weight="600" text-anchor="start" fill="#ffffff">FAIL</text>
+<text x="24.0" y="187.0" font-size="12" font-weight="400" text-anchor="start" fill="#ffffff">DIAG-05</text>
+<path d="M112.0,176.0 h134.0 a4,4 0 0 1 4,4 v6.0 a4,4 0 0 1 -4,4 h-134.0 z" fill="#0ca30c"/>
+<text x="262.0" y="187.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">3 of 3 passed</text>
+<text x="676.0" y="187.0" font-size="12" font-weight="700" text-anchor="start" fill="#0ca30c">✓</text>
+<text x="692.0" y="187.0" font-size="11" font-weight="600" text-anchor="start" fill="#ffffff">PASS</text>
+<text x="24.0" y="211.0" font-size="12" font-weight="400" text-anchor="start" fill="#ffffff">DIAG-06</text>
+<path d="M112.0,200.0 h134.0 a4,4 0 0 1 4,4 v6.0 a4,4 0 0 1 -4,4 h-134.0 z" fill="#0ca30c"/>
+<text x="262.0" y="211.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">3 of 3 passed</text>
+<text x="676.0" y="211.0" font-size="12" font-weight="700" text-anchor="start" fill="#0ca30c">✓</text>
+<text x="692.0" y="211.0" font-size="11" font-weight="600" text-anchor="start" fill="#ffffff">PASS</text>
+<text x="24.0" y="235.0" font-size="12" font-weight="400" text-anchor="start" fill="#ffffff">NET-01</text>
+<rect x="112.0" y="224.0" width="44.0" height="14.0" rx="0" fill="#0ca30c" fill-opacity="1.0"/>
+<path d="M158.0,224.0 h42.0 a4,4 0 0 1 4,4 v6.0 a4,4 0 0 1 -4,4 h-42.0 z" fill="#d03b3b"/>
+<text x="216.0" y="235.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">1 of 2 passed</text>
+<text x="676.0" y="235.0" font-size="12" font-weight="700" text-anchor="start" fill="#d03b3b">✕</text>
+<text x="692.0" y="235.0" font-size="11" font-weight="600" text-anchor="start" fill="#ffffff">FAIL</text>
+<text x="24.0" y="259.0" font-size="12" font-weight="400" text-anchor="start" fill="#ffffff">NET-02</text>
+<rect x="112.0" y="248.0" width="44.0" height="14.0" rx="0" fill="#0ca30c" fill-opacity="1.0"/>
+<path d="M158.0,248.0 h88.0 a4,4 0 0 1 4,4 v6.0 a4,4 0 0 1 -4,4 h-88.0 z" fill="#d03b3b"/>
+<text x="262.0" y="259.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">1 of 3 passed</text>
+<text x="676.0" y="259.0" font-size="12" font-weight="700" text-anchor="start" fill="#d03b3b">✕</text>
+<text x="692.0" y="259.0" font-size="11" font-weight="600" text-anchor="start" fill="#ffffff">FAIL</text>
+<text x="24.0" y="283.0" font-size="12" font-weight="400" text-anchor="start" fill="#ffffff">NET-03</text>
+<path d="M112.0,272.0 h42.0 a4,4 0 0 1 4,4 v6.0 a4,4 0 0 1 -4,4 h-42.0 z" fill="#0ca30c"/>
+<text x="170.0" y="283.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">1 of 1 passed</text>
+<text x="676.0" y="283.0" font-size="12" font-weight="700" text-anchor="start" fill="#0ca30c">✓</text>
+<text x="692.0" y="283.0" font-size="11" font-weight="600" text-anchor="start" fill="#ffffff">PASS</text>
+<text x="24.0" y="307.0" font-size="12" font-weight="400" text-anchor="start" fill="#ffffff">SEC-01</text>
+<rect x="112.0" y="296.0" width="44.0" height="14.0" rx="0" fill="#0ca30c" fill-opacity="1.0"/>
+<path d="M158.0,296.0 h134.0 a4,4 0 0 1 4,4 v6.0 a4,4 0 0 1 -4,4 h-134.0 z" fill="#d03b3b"/>
+<text x="308.0" y="307.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">1 of 4 passed</text>
+<text x="676.0" y="307.0" font-size="12" font-weight="700" text-anchor="start" fill="#d03b3b">✕</text>
+<text x="692.0" y="307.0" font-size="11" font-weight="600" text-anchor="start" fill="#ffffff">FAIL</text>
+<text x="24.0" y="331.0" font-size="12" font-weight="400" text-anchor="start" fill="#ffffff">SEC-02</text>
+<path d="M112.0,320.0 h88.0 a4,4 0 0 1 4,4 v6.0 a4,4 0 0 1 -4,4 h-88.0 z" fill="#0ca30c"/>
+<text x="216.0" y="331.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">2 of 2 passed</text>
+<text x="676.0" y="331.0" font-size="12" font-weight="700" text-anchor="start" fill="#0ca30c">✓</text>
+<text x="692.0" y="331.0" font-size="11" font-weight="600" text-anchor="start" fill="#ffffff">PASS</text>
+<text x="24.0" y="355.0" font-size="12" font-weight="400" text-anchor="start" fill="#ffffff">SEC-03</text>
+<path d="M112.0,344.0 h88.0 a4,4 0 0 1 4,4 v6.0 a4,4 0 0 1 -4,4 h-88.0 z" fill="#d03b3b"/>
+<text x="216.0" y="355.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">0 of 2 passed</text>
+<text x="676.0" y="355.0" font-size="12" font-weight="700" text-anchor="start" fill="#d03b3b">✕</text>
+<text x="692.0" y="355.0" font-size="11" font-weight="600" text-anchor="start" fill="#ffffff">FAIL</text>
+<text x="24.0" y="379.0" font-size="12" font-weight="400" text-anchor="start" fill="#ffffff">SEC-04</text>
+<path d="M112.0,368.0 h134.0 a4,4 0 0 1 4,4 v6.0 a4,4 0 0 1 -4,4 h-134.0 z" fill="#d03b3b"/>
+<text x="262.0" y="379.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">0 of 3 passed</text>
+<text x="676.0" y="379.0" font-size="12" font-weight="700" text-anchor="start" fill="#d03b3b">✕</text>
+<text x="692.0" y="379.0" font-size="11" font-weight="600" text-anchor="start" fill="#ffffff">FAIL</text>
+<text x="24.0" y="403.0" font-size="12" font-weight="400" text-anchor="start" fill="#ffffff">SEC-05</text>
+<rect x="112.0" y="392.0" width="44.0" height="14.0" rx="0" fill="#0ca30c" fill-opacity="1.0"/>
+<path d="M158.0,392.0 h134.0 a4,4 0 0 1 4,4 v6.0 a4,4 0 0 1 -4,4 h-134.0 z" fill="#d03b3b"/>
+<text x="308.0" y="403.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">1 of 4 passed</text>
+<text x="676.0" y="403.0" font-size="12" font-weight="700" text-anchor="start" fill="#d03b3b">✕</text>
+<text x="692.0" y="403.0" font-size="11" font-weight="600" text-anchor="start" fill="#ffffff">FAIL</text>
+<rect x="112.0" y="429.0" width="12.0" height="12.0" rx="2" fill="#0ca30c" fill-opacity="1.0"/>
+<text x="130.0" y="439.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">tests passed</text>
+<rect x="242.0" y="429.0" width="12.0" height="12.0" rx="2" fill="#d03b3b" fill-opacity="1.0"/>
+<text x="260.0" y="439.0" font-size="11" font-weight="400" text-anchor="start" fill="#c3c2b7">tests failed</text>
+</svg>

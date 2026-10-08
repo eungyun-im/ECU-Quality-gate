@@ -153,6 +153,13 @@ The planted defects are the kind that slip through a quick functional check. Bot
 
 Each defect is also planted alone in a temporary build, and CI checks that the requirement it violates then has a failing test ([`tests/gate/test_gate_run.py`](tests/gate/test_gate_run.py)).
 
+One of them, as the trace analyzer sees it. The figure is drawn from the recorded bus traces of both builds:
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/cycle-time-dark.svg">
+  <img src="docs/img/cycle-time-light.svg" alt="Gap between ObstacleDistance frames: 20 ms on the reference build, 26 ms on the seeded build, outside the 18 to 22 ms band" width="760">
+</picture>
+
 ## The gate
 
 Criteria live in [`requirements/gate_criteria.yaml`](requirements/gate_criteria.yaml).
@@ -195,6 +202,13 @@ Open defects: 7
 ```
 
 The reference build gives 48 passed, 0 failed and no defects. The exit code is 0 for `PASS`, 1 for `HOLD` and 2 while the verdict is pending.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/gate-results-dark.svg">
+  <img src="docs/img/gate-results-light.svg" alt="Requirement test results on the seeded build: 7 of 14 requirements have failing tests" width="760">
+</picture>
+
+Both figures are regenerated from real runs with `python -m tools.figures`.
 
 The verdict logic has a written contract: [`tests/gate/test_verdict.py`](tests/gate/test_verdict.py) holds ten cases that are skipped until `decide()` is implemented.
 
