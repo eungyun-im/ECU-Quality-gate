@@ -46,7 +46,7 @@ flowchart LR
 
     BUS --> D[Diagnostic tests<br>UDS]
     BUS --> N[Network analyzer<br>cycle / timeout / range]
-    BUS --> S[Security checks<br>access control]
+    BUS --> S[Security checks<br>access control / fuzzing]
 
     D --> G{Quality gate}
     N --> G
@@ -82,6 +82,11 @@ flowchart LR
 |---|---|
 | SEC-01 | A wrong key returns NRC `0x35`. Three wrong keys in a row lock access for 10 s. |
 | SEC-02 | Write services are rejected with NRC `0x33` while security is locked. |
+| SEC-03 | The security seed changes on every request. A replayed seed and key pair does not unlock. |
+| SEC-04 | An ECU reset or session change does not clear the failed-attempt counter. |
+| SEC-05 | Under random and malformed requests, the ECU keeps answering and keeps its bus timing. |
+
+Each security requirement is derived from a concrete way to abuse the diagnostic interface: key guessing, replay, lockout bypass, fuzzing. See [`docs/security_test_design.md`](docs/security_test_design.md).
 
 Full text: [`requirements/requirements.md`](requirements/requirements.md) · Network definition: [`network/messages.yaml`](network/messages.yaml)
 
@@ -94,7 +99,7 @@ A gate that has never caught anything proves nothing. The repository carries two
 | [`builds/v1.0.0.yaml`](builds/v1.0.0.yaml) | Reference build that meets every requirement |
 | [`builds/v1.1.0.yaml`](builds/v1.1.0.yaml) | Build with defects planted on purpose |
 
-The planted defects are the kind that slip through a quick functional check: a message that drifts off its cycle time, a write service that works in the wrong session, a security lockout that never engages. The gate must pass the first build and hold the second, naming each planted defect.
+The planted defects are the kind that slip through a quick functional check: a message that drifts off its cycle time, a write service that works in the wrong session, a security seed that never changes, a request that makes the ECU stop answering. The gate must pass the first build and hold the second, naming each planted defect.
 
 ## The gate
 
@@ -133,7 +138,7 @@ ecu-quality-gate/
 ├── network/             Message and signal definitions
 ├── builds/              ECU build configurations (reference and seeded)
 ├── ecus/                Virtual ECUs
-├── bench/               Virtual bus, UDS client, fault injection
+├── bench/               Virtual bus, UDS client, fault injection, fuzzer
 ├── analyzer/            Trace parsing and network checks
 ├── gate/                Verdict and report
 ├── tests/
@@ -166,7 +171,7 @@ docker run --rm ecu-quality-gate
 
 ## Standards referenced
 
-ISO 14229 (UDS) · ISO 11898 (CAN) · ISO 26262 · Automotive SPICE (SWE.4 to SWE.6) · ISTQB CTFL v4.0
+ISO 14229 (UDS) · ISO 11898 (CAN) · ISO 26262 · ISO/SAE 21434 · UN R155 · Automotive SPICE (SWE.4 to SWE.6) · ISTQB CTFL v4.0
 
 ## Related
 

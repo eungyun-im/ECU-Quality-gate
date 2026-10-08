@@ -13,3 +13,12 @@ seeded_defects:
   - id: SEED-04
     violates: NET-02
     behavior: No timeout DTC is stored when VehicleSpeed stops.
+  - id: SEED-05
+    violates: SEC-03
+    behavior: SecurityAccess returns the same seed on every request.
+  - id: SEED-06
+    violates: SEC-04
+    behavior: ECUReset clears the failed-attempt counter.
+  - id: SEED-07
+    violates: SEC-05
+    behavior: A request with a declared length longer than the frame stops all responses.

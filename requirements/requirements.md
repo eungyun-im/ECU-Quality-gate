@@ -25,6 +25,9 @@
 |---|---|---|
 | SEC-01 | SecurityAccess `0x27`: a wrong key is rejected. After 3 consecutive wrong keys, access is locked for 10 s. | NRC `0x35` wrong key, NRC `0x36` on the third failure, NRC `0x37` during the delay |
 | SEC-02 | Write services are rejected while security is locked. | NRC `0x33` |
+| SEC-03 | The seed returned by `0x27 01` differs on every request. A captured seed and key pair does not unlock a later attempt. | NRC `0x35` on replay |
+| SEC-04 | ECUReset or a session change does not clear the failed-attempt counter or the lockout delay. | NRC `0x37` during the delay |
+| SEC-05 | Under malformed or random diagnostic requests, the ECU keeps responding. Every undefined request gets a negative response and periodic messages keep their cycle time. | Any valid NRC |
 
 ## Addresses
 
