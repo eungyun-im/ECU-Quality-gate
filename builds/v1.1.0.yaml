@@ -1,0 +1,15 @@
+version: 1.1.0
+description: Build with defects planted on purpose. The gate must hold it.
+seeded_defects:
+  - id: SEED-01
+    violates: NET-01
+    behavior: ObstacleDistance is sent every 26 ms instead of 20 ms.
+  - id: SEED-02
+    violates: DIAG-04
+    behavior: WriteDataByIdentifier is accepted in the default session.
+  - id: SEED-03
+    violates: SEC-01
+    behavior: The attempt counter never locks access after wrong keys.
+  - id: SEED-04
+    violates: NET-02
+    behavior: No timeout DTC is stored when VehicleSpeed stops.

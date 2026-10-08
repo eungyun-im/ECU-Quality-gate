@@ -1,0 +1,37 @@
+bus: {name: body_can, bitrate: 500000}
+
+messages:
+  - name: VehicleSpeed
+    id: 0x100
+    sender: sensor_ecu
+    receivers: [brake_ecu]
+    cycle_ms: 10
+    signals:
+      - {name: speed_kph, min: 0.0, max: 250.0, unit: km/h}
+
+  - name: ObstacleDistance
+    id: 0x110
+    sender: sensor_ecu
+    receivers: [brake_ecu]
+    cycle_ms: 20
+    signals:
+      - {name: distance_m, min: 0.0, max: 200.0, unit: m}
+      - {name: valid, min: 0, max: 1}
+
+  - name: BrakeCommand
+    id: 0x120
+    sender: brake_ecu
+    receivers: []
+    cycle_ms: 10
+    signals:
+      - {name: brake_request, min: 0, max: 1}
+      - {name: fault, min: 0, max: 1}
+
+diagnostics:
+  request_id: 0x7E0
+  response_id: 0x7E8
+  s3_server_ms: 5000
+  dids:
+    - {id: 0xF190, name: vin, access: read}
+    - {id: 0xF195, name: sw_version, access: read}
+    - {id: 0x0101, name: brake_speed_threshold_kph, access: read_write}

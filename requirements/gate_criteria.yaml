@@ -1,0 +1,15 @@
+verdicts: [PASS, HOLD]
+
+criteria:
+  requirement_coverage_min: 1.0
+  open_defects_max:
+    critical: 0
+    major: 0
+    minor: 3
+  tests_blocked_max: 0
+  tests_not_run_max: 0
+
+severity:
+  critical: Safety or security requirement violated
+  major: Requirement violated, function impaired
+  minor: Requirement met with a deviation that needs tracking
