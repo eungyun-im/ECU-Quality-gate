@@ -1,0 +1,4 @@
+-- Tests that passed in the previous build and fail in the current one.
+-- Parameters: :previous_run_id, :current_run_id
+-- Returns: test_id, requirement_id, previous_outcome, current_outcome
+-- TODO

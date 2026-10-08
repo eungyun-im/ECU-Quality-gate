@@ -1,0 +1,3 @@
+-- Pass rate per build and requirement category, oldest build first.
+-- Returns: version, category, tests, passed, pass_rate
+-- TODO

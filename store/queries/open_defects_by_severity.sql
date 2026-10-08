@@ -1,0 +1,4 @@
+-- Gate criterion: open defects per severity for a build.
+-- Parameter: :build_id
+-- Returns: severity, open_count
+-- TODO

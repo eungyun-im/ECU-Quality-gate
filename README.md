@@ -7,6 +7,7 @@
 [![gate](https://github.com/eungyun-im/ecu-quality-gate/actions/workflows/gate.yml/badge.svg)](https://github.com/eungyun-im/ecu-quality-gate/actions/workflows/gate.yml)
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white)
 ![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=flat-square&logo=pytest&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white)
 ![UDS](https://img.shields.io/badge/UDS-ISO_14229-555555?style=flat-square)
@@ -130,6 +131,17 @@ DEFECTS
 
 Each defect is filed with the template in [`docs/defect_template.md`](docs/defect_template.md).
 
+### Results store
+
+Every run is recorded in a SQLite database: builds, requirements, test results and defects ([`store/schema.sql`](store/schema.sql)). The gate criteria are evaluated as SQL queries over that history, so the same data answers both "can this build go on" and "what changed since the last build".
+
+| Query | Answers |
+|---|---|
+| [`requirement_coverage.sql`](store/queries/requirement_coverage.sql) | Share of requirements with an executed test |
+| [`open_defects_by_severity.sql`](store/queries/open_defects_by_severity.sql) | Open defects per severity for a build |
+| [`regression_between_builds.sql`](store/queries/regression_between_builds.sql) | Tests that passed before and fail now |
+| [`pass_rate_trend.sql`](store/queries/pass_rate_trend.sql) | Pass rate per build and requirement category |
+
 ## Repository layout
 
 ```
@@ -141,6 +153,7 @@ ecu-quality-gate/
 ├── bench/               Virtual bus, UDS client, fault injection, fuzzer
 ├── analyzer/            Trace parsing and network checks
 ├── gate/                Verdict and report
+├── store/               SQLite schema and gate queries
 ├── tests/
 │   ├── diag/            DIAG requirements
 │   ├── network/         NET requirements
@@ -178,6 +191,7 @@ docker run --rm ecu-quality-gate
 - [ ] Diagnostic, network and security test suites, one test per requirement
 - [ ] Trace analyzer: cycle time, timeout, signal range
 - [ ] Diagnostic fuzzer with replayable seeds
+- [ ] Results store in SQLite, gate criteria as SQL queries
 - [ ] Gate verdict and report
 - [ ] Reference build passes, seeded build is held with every planted defect named
 
