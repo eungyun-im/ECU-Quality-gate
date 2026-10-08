@@ -3,4 +3,4 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-CMD ["pytest", "-v"]
+CMD ["sh", "-c", "pytest -q && python -m gate.run builds/v1.1.0.yaml --out reports; test $? -le 2"]

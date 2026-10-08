@@ -1,5 +1,7 @@
 bus: {name: body_can, bitrate: 500000}
 
+# Signals are unsigned, big-endian, laid out in the order listed.
+# physical value = raw * scale
 messages:
   - name: VehicleSpeed
     id: 0x100
@@ -7,7 +9,7 @@ messages:
     receivers: [brake_ecu]
     cycle_ms: 10
     signals:
-      - {name: speed_kph, min: 0.0, max: 250.0, unit: km/h}
+      - {name: speed_kph, bytes: 2, scale: 0.1, min: 0.0, max: 250.0, unit: km/h}
 
   - name: ObstacleDistance
     id: 0x110
@@ -15,8 +17,8 @@ messages:
     receivers: [brake_ecu]
     cycle_ms: 20
     signals:
-      - {name: distance_m, min: 0.0, max: 200.0, unit: m}
-      - {name: valid, min: 0, max: 1}
+      - {name: distance_m, bytes: 2, scale: 0.1, min: 0.0, max: 200.0, unit: m}
+      - {name: valid, bytes: 1, scale: 1, min: 0, max: 1}
 
   - name: BrakeCommand
     id: 0x120
@@ -24,14 +26,22 @@ messages:
     receivers: []
     cycle_ms: 10
     signals:
-      - {name: brake_request, min: 0, max: 1}
-      - {name: fault, min: 0, max: 1}
+      - {name: brake_request, bytes: 1, scale: 1, min: 0, max: 1}
+      - {name: fault, bytes: 1, scale: 1, min: 0, max: 1}
 
 diagnostics:
+  ecu: brake_ecu
   request_id: 0x7E0
   response_id: 0x7E8
   s3_server_ms: 5000
+  security:
+    max_attempts: 3
+    lockout_ms: 10000
+  timeout_cycles: 3
   dids:
-    - {id: 0xF190, name: vin, access: read}
-    - {id: 0xF195, name: sw_version, access: read}
-    - {id: 0x0101, name: brake_speed_threshold_kph, access: read_write}
+    - {id: 0xF190, name: vin, access: read, bytes: 17}
+    - {id: 0xF195, name: sw_version, access: read, bytes: 3}
+    - {id: 0x0101, name: brake_speed_threshold_kph, access: read_write, bytes: 2, scale: 0.1}
+  dtcs:
+    - {code: 0xD00100, name: vehicle_speed_timeout, message: VehicleSpeed}
+    - {code: 0xD00200, name: obstacle_distance_timeout, message: ObstacleDistance}

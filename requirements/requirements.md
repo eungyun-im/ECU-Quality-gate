@@ -35,3 +35,14 @@
 |---|---|
 | Tester request | `0x7E0` |
 | ECU response | `0x7E8` |
+
+## Scope of the virtual ECU
+
+The requirements above are verified against a virtual ECU. These simplifications are deliberate and apply to every test:
+
+- **One frame per message.** The diagnostic channel is treated as CAN FD, so a request or response always fits a single frame: one length byte, then the payload. ISO-TP segmentation is out of scope.
+- **Malformed frames.** A frame whose length byte is zero or exceeds the frame gets NRC `0x13`. (A real ISO-TP layer would drop it silently. Answering makes "the ECU is still alive" observable to the fuzzer.)
+- **Session control** answers without the timing parameter record.
+- **Seed and key.** Seeds are 16 bit. The seed-to-key function is public and simple, because the tests target the access-control state machine and not key strength.
+- **Non-volatile data.** The failed-attempt counter, the lockout delay and stored DTCs survive an ECU reset. The session and the unlocked state do not.
+- **DTC status.** Stored DTCs are reported with status `0x09` (testFailed and confirmedDTC).

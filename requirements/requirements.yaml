@@ -1,0 +1,17 @@
+# Machine-readable index of requirements/requirements.md.
+# severity = how a violation is classified when the gate files a defect.
+requirements:
+  - {id: DIAG-01, category: DIAG, severity: major, text: Session control enters the extended session.}
+  - {id: DIAG-02, category: DIAG, severity: major, text: Session falls back to default after 5 s without a diagnostic request.}
+  - {id: DIAG-03, category: DIAG, severity: major, text: ReadDataByIdentifier returns data or the specified negative response.}
+  - {id: DIAG-04, category: DIAG, severity: critical, text: WriteDataByIdentifier needs the extended session and unlocked security.}
+  - {id: DIAG-05, category: DIAG, severity: major, text: Stored DTCs can be read and cleared.}
+  - {id: DIAG-06, category: DIAG, severity: major, text: ECUReset returns the ECU to the default session, locked.}
+  - {id: NET-01, category: NET, severity: major, text: Periodic messages stay within 10 % of the nominal cycle time.}
+  - {id: NET-02, category: NET, severity: critical, text: A message missing for more than 3 cycles stores a timeout DTC.}
+  - {id: NET-03, category: NET, severity: major, text: Signals stay inside their declared range.}
+  - {id: SEC-01, category: SEC, severity: critical, text: Three wrong keys lock security access for 10 s.}
+  - {id: SEC-02, category: SEC, severity: critical, text: Write services are rejected while security is locked.}
+  - {id: SEC-03, category: SEC, severity: critical, text: The seed changes on every request and a replayed key is rejected.}
+  - {id: SEC-04, category: SEC, severity: critical, text: A reset or session change does not clear the failed-attempt counter.}
+  - {id: SEC-05, category: SEC, severity: critical, text: The ECU keeps answering under malformed and random requests.}
