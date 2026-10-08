@@ -169,6 +169,30 @@ docker build -t ecu-quality-gate .
 docker run --rm ecu-quality-gate
 ```
 
+## Roadmap
+
+**Core**
+
+- [ ] Virtual bus with a simulated clock and trace recording
+- [ ] Virtual ECUs with the UDS services in the requirements
+- [ ] Diagnostic, network and security test suites, one test per requirement
+- [ ] Trace analyzer: cycle time, timeout, signal range
+- [ ] Diagnostic fuzzer with replayable seeds
+- [ ] Gate verdict and report
+- [ ] Reference build passes, seeded build is held with every planted defect named
+
+**Next**
+
+- [ ] Build-to-build regression comparison: new failures, new defects, fixed defects
+
+**Later**
+
+- [ ] Quality trend dashboard across builds
+- [ ] OTA update verification: interrupted update, bad signature, downgrade, rollback
+- [ ] DBC import for the network definition
+- [ ] ISO-TP multi-frame diagnostics
+- [ ] Root-cause classification of defects
+
 ## Standards referenced
 
 ISO 14229 (UDS) · ISO 11898 (CAN) · ISO 26262 · ISO/SAE 21434 · UN R155 · Automotive SPICE (SWE.4 to SWE.6) · ISTQB CTFL v4.0
