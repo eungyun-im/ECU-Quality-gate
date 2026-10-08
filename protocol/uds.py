@@ -65,7 +65,11 @@ DTC_STATUS_CONFIRMED = 0x09  # testFailed | confirmedDTC
 DTC_STATUS_AVAILABILITY_MASK = 0xFF
 ALL_DTC_GROUP = (0xFF, 0xFF, 0xFF)
 
-MIN_FRAME_BYTES = 8
+# Server timing reported in the DiagnosticSessionControl response.
+P2_SERVER_MAX_MS = 50
+P2_STAR_SERVER_MAX_MS = 5000
+
+MAX_REQUEST_BYTES = 4095  # ISO-TP limit with a 12-bit length field
 
 
 def compute_key(seed):
@@ -77,17 +81,12 @@ def compute_key(seed):
     return ((seed ^ 0x5AA5) + 0x1F3B) & 0xFFFF
 
 
-def to_frame(payload):
-    """Wrap a UDS payload in a single frame: length byte, payload, zero padding."""
-    data = bytes([len(payload), *payload])
-    return data.ljust(MIN_FRAME_BYTES, b"\x00")
-
-
-def from_frame(data):
-    """Return the payload of a single frame, or None when the frame is malformed."""
-    if not data:
-        return None
-    length = data[0]
-    if length == 0 or length > len(data) - 1:
-        return None
-    return list(data[1 : 1 + length])
+def session_timing_record():
+    """P2 in 1 ms units and P2* in 10 ms units, two bytes each."""
+    p2_star = P2_STAR_SERVER_MAX_MS // 10
+    return [
+        P2_SERVER_MAX_MS >> 8,
+        P2_SERVER_MAX_MS & 0xFF,
+        p2_star >> 8,
+        p2_star & 0xFF,
+    ]

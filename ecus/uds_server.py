@@ -1,10 +1,9 @@
 """UDS server of the brake ECU: sessions, data identifiers, DTCs, security access.
 
-Simplifications against ISO 14229, all deliberate:
-- Every message fits one frame (the diagnostic channel is treated as CAN FD),
-  so there is no ISO-TP segmentation.
-- Session control answers without the timing parameter record.
-- suppressPosRspMsgIndicationBit is not supported.
+It works on complete UDS messages. Segmentation into CAN frames is done by
+the ISO-TP layer underneath (protocol/isotp_link.py).
+
+Not supported: suppressPosRspMsgIndicationBit and response pending (NRC 0x78).
 """
 
 import random
@@ -12,6 +11,7 @@ import random
 from protocol import uds
 
 FIXED_SEED = 0x1234
+SEEDED_HANG_LENGTH = 16
 
 
 class UdsServer:
@@ -45,26 +45,18 @@ class UdsServer:
         self.failed_attempts = 0
         self.lockout_until_ms = 0
 
-    # Frame level
-
-    def handle(self, data, now_ms):
-        """Return the response frame for a request frame, or None for no response."""
-        if self.hung:
+    def handle(self, request, now_ms):
+        """Return the response to one UDS request (lists of ints), or None for no response."""
+        if self.hung or not request:
             return None
-        request = uds.from_frame(data)
-        if request is None:
-            if self.build.has("SEED-07") and data and data[0] > len(data) - 1:
-                self.hung = True
-                return None
-            service = data[1] if len(data) > 1 else 0x00
-            return uds.to_frame(self._negative(service, uds.NRC_INCORRECT_LENGTH))
+        if self.build.has("SEED-07") and len(request) > SEEDED_HANG_LENGTH:
+            self.hung = True
+            return None
         self.last_request_ms = now_ms
         handler = self._handlers.get(request[0])
         if handler is None:
-            response = self._negative(request[0], uds.NRC_SERVICE_NOT_SUPPORTED)
-        else:
-            response = handler(request, now_ms)
-        return uds.to_frame(response)
+            return self._negative(request[0], uds.NRC_SERVICE_NOT_SUPPORTED)
+        return handler(request, now_ms)
 
     def tick(self, now_ms):
         """S3 server timer: leave a non-default session after a quiet period."""
@@ -89,7 +81,7 @@ class UdsServer:
         if request[1] not in (uds.DEFAULT_SESSION, uds.EXTENDED_SESSION):
             return self._negative(service, uds.NRC_SUB_FUNCTION_NOT_SUPPORTED)
         self._enter_session(request[1])
-        return [service + uds.POSITIVE_OFFSET, request[1]]
+        return [service + uds.POSITIVE_OFFSET, request[1], *uds.session_timing_record()]
 
     def _tester_present(self, request, now_ms):
         service = uds.TESTER_PRESENT

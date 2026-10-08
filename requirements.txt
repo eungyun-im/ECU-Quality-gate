@@ -1,2 +1,5 @@
 pytest
 pyyaml
+udsoncan
+can-isotp
+python-can

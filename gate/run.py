@@ -55,7 +55,7 @@ def derive_defects(results):
     defects = []
     for number, (requirement, tests) in enumerate(sorted(failed.items()), start=1):
         first = tests[0]
-        check = first.test_id.removeprefix("test_").replace("_", " ")
+        check = first.test_id.split(".")[-1].removeprefix("test_").replace("_", " ")
         summary = f"Check failed: {check}"
         if len(tests) > 1:
             summary += f" (+{len(tests) - 1} more)"

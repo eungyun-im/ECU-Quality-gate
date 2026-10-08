@@ -21,4 +21,4 @@ seeded_defects:
     behavior: ECUReset clears the failed-attempt counter.
   - id: SEED-07
     violates: SEC-05
-    behavior: A request with a declared length longer than the frame stops all responses.
+    behavior: A diagnostic request longer than 16 bytes stops all responses.

@@ -19,4 +19,4 @@ The checks are about protocol behavior and timing rules, which do not depend on 
 
 ## Out of scope
 
-Physical-layer faults, ISO-TP multi-frame messages, and timing accuracy of real hardware.
+Physical-layer faults, CAN FD, functional addressing, and timing accuracy of real hardware.

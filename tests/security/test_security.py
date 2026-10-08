@@ -130,26 +130,34 @@ def test_reset_does_not_end_the_lockout(bench):
 
 
 @pytest.mark.req("SEC-05")
-def test_ecu_survives_random_requests(bench):
+def test_ecu_answers_every_random_request(bench):
     fuzzer = DiagFuzzer(bench.client, FUZZ_SEED)
-    findings = fuzzer.run(fuzzer.random_frames(300))
+    findings = fuzzer.run(fuzzer.random_payloads(300))
     assert [str(f) for f in findings] == []
     assert bench.client.tester_present() == [0x7E, 0x00]
 
 
 @pytest.mark.req("SEC-05")
-def test_ecu_survives_mutated_requests(bench):
+def test_ecu_answers_every_mutated_request(bench):
     fuzzer = DiagFuzzer(bench.client, FUZZ_SEED)
     valid = [uds.READ_DATA_BY_IDENTIFIER, 0xF1, 0x95]
-    findings = fuzzer.run(fuzzer.mutated_frames(valid, 120))
+    findings = fuzzer.run(fuzzer.mutated_payloads(valid, 120))
     assert [str(f) for f in findings] == []
     assert bench.client.tester_present() == [0x7E, 0x00]
 
 
 @pytest.mark.req("SEC-05")
-def test_bus_timing_holds_after_fuzzing(bench):
+def test_ecu_stays_alive_under_raw_frame_noise(bench):
     fuzzer = DiagFuzzer(bench.client, FUZZ_SEED)
-    for frame in fuzzer.random_frames(100):
-        bench.client.request_raw(frame, timeout_ms=5)
+    fuzzer.send_frames(fuzzer.random_frames(300))
+    assert bench.client.tester_present() == [0x7E, 0x00]
+    assert bench.client.read_did(0xF190)[:3] == [0x62, 0xF1, 0x90]
+
+
+@pytest.mark.req("SEC-05")
+def test_bus_timing_holds_while_fuzzing(bench):
+    fuzzer = DiagFuzzer(bench.client, FUZZ_SEED)
+    for payload in fuzzer.random_payloads(100):
+        bench.client.request(payload, timeout_ms=5)
         bench.bus.advance(3)
     assert [str(f) for f in check_cycle_time(bench.bus.trace, bench.network)] == []

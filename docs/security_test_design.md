@@ -14,9 +14,11 @@ Each security requirement starts from a way the diagnostic interface can be abus
 
 ## Fuzzing approach
 
-- **Random**: service ID, length byte and payload drawn at random.
-- **Mutation**: start from a valid request and flip bits, truncate, change the length byte, or extend the payload.
-- **Oracle**: the ECU answers every request, undefined requests get a negative response, and periodic messages stay within NET-01 while fuzzing runs.
+- **Random payloads**: UDS messages of random content, 1 to 40 bytes, sent through ISO-TP. Messages over 7 bytes go out as several frames.
+- **Mutation**: start from a valid request and flip bits, truncate, extend, repeat, or swap the service ID.
+- **Raw frames**: random CAN frames on the request ID, bypassing ISO-TP. Most are invalid transport frames.
+- **Oracle for payloads**: the ECU answers every request, an unsupported service never gets a positive response, and periodic messages stay within NET-01 while fuzzing runs.
+- **Oracle for raw frames**: invalid transport frames are rightly ignored, so the check is liveness. After the noise the ECU still answers a single-frame and a multi-frame request.
 - **Reproducibility**: the fuzzer is seeded. A failing case is stored with its seed and the exact frame, then added to the regression suite as a fixed test.
 
 ## Out of scope

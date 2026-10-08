@@ -20,7 +20,7 @@ def test_starts_in_default_session(bench):
 
 @pytest.mark.req("DIAG-01")
 def test_enter_extended_session(bench):
-    assert bench.client.enter_session(uds.EXTENDED_SESSION) == [0x50, 0x03]
+    assert bench.client.enter_session(uds.EXTENDED_SESSION) == [0x50, 0x03, 0x00, 0x32, 0x01, 0xF4]
     assert isinstance(bench.client.request_seed(), int)
 
 

@@ -22,12 +22,17 @@ class VirtualBus:
         self.now_ms = 0
         self.trace = []
         self.nodes = []
+        self.transports = []
         self.injector = None
         self._delayed = []
 
     def attach(self, node):
         """A node needs on_frame(frame) and step(now_ms). Nodes step in attach order."""
         self.nodes.append(node)
+
+    def add_transport(self, transport):
+        """A transport needs pump(), returning True while it still has work to do."""
+        self.transports.append(transport)
 
     def send(self, can_id, data, sender=None):
         data = bytes(data)
@@ -48,6 +53,17 @@ class VirtualBus:
             if node is not sender:
                 node.on_frame(frame)
 
+    def settle(self, limit=10000):
+        """Run the transport layers until no frame is waiting to be handled.
+
+        A segmented diagnostic message is several frames in both directions.
+        They are all exchanged within the current millisecond.
+        """
+        for _ in range(limit):
+            if not any([transport.pump() for transport in self.transports]):
+                return
+        raise RuntimeError("transport layers did not settle")
+
     def advance(self, ms):
         for _ in range(ms):
             self.now_ms += 1
@@ -57,6 +73,7 @@ class VirtualBus:
                 self._deliver(can_id, payload, sender)
             for node in list(self.nodes):
                 node.step(self.now_ms)
+            self.settle()
 
     def save_trace(self, path):
         save_trace(self.trace, path)

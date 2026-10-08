@@ -1,5 +1,12 @@
-"""UDS tester client. It is a bus node that sends requests and collects responses."""
+"""Tester side of the diagnostic link.
 
+UdsClient sends raw UDS payloads over ISO-TP. It is used where a test needs
+full control of the bytes: malformed requests, fuzzing, exact response checks.
+For well-formed requests there is also a standard udsoncan client, see
+bench/tester.py.
+"""
+
+from protocol.isotp_link import IsoTpEndpoint
 from protocol import uds
 
 
@@ -8,31 +15,48 @@ class UdsClient:
         self.bus = bus
         self.request_id = request_id
         self.response_id = response_id
-        self._inbox = []
+        self.link = IsoTpEndpoint(bus, txid=request_id, rxid=response_id, owner=self)
         bus.attach(self)
+        bus.add_transport(self.link)
 
     def on_frame(self, frame):
-        if frame.can_id == self.response_id:
-            self._inbox.append(frame)
+        self.link.on_frame(frame)
 
     def step(self, now_ms):
         pass
 
-    def request(self, payload, timeout_ms=1000):
-        """Send a UDS payload and return the response payload, or None on timeout."""
-        return self.request_raw(uds.to_frame(payload), timeout_ms)
+    def send(self, payload):
+        """Send a UDS payload. Segmentation into CAN frames is done by ISO-TP."""
+        self.link.send(payload)
+        self.bus.settle()
 
-    def request_raw(self, frame_data, timeout_ms=1000):
-        """Send raw frame bytes, including the length byte. Used by the fuzzer."""
-        self._inbox.clear()
-        self.bus.send(self.request_id, frame_data, sender=self)
+    def wait_response(self, timeout_ms=1000):
+        """Advance simulated time until a complete response arrives. None on timeout."""
         waited = 0
-        while not self._inbox and waited < timeout_ms:
+        while True:
+            self.bus.settle()
+            response = self.link.receive()
+            if response is not None:
+                return response
+            if waited >= timeout_ms:
+                return None
             self.bus.advance(1)
             waited += 1
-        if not self._inbox:
-            return None
-        return uds.from_frame(self._inbox[0].data)
+
+    def flush(self):
+        while self.link.receive() is not None:
+            pass
+
+    def request(self, payload, timeout_ms=1000):
+        """Send a UDS payload and return the response payload, or None on timeout."""
+        self.flush()
+        self.send(payload)
+        return self.wait_response(timeout_ms)
+
+    def send_raw_frame(self, data):
+        """Put one raw CAN frame on the request ID, bypassing ISO-TP. For transport fuzzing."""
+        self.bus.send(self.request_id, bytes(data), sender=self)
+        self.bus.settle()
 
     # Convenience wrappers used across the test suites.
 
